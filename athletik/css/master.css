@@ -1,0 +1,9 @@
+.error {
+	box-shadow: 0 0 5px red;
+}
+.error:focus {
+	box-shadow: none;
+}
+.error:valid {
+	box-shadow: none;
+}
