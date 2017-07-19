@@ -5,6 +5,13 @@
 	text-decoration: none;
 	list-style-type: none;
 }
+a {
+	background: #2277FF;
+	color: white;
+}
+a:hover {
+	background: #5588FF;
+}
 body {
 	padding: 10px;
 }
@@ -19,12 +26,17 @@ main {
 	display: flex;
 }
 section {
-	flex: 3;
+	width: 60%;
 }
 aside {
-	flex: 2;
+	width: 40%;
 	display: flex;
 	flex-direction: column;
+}
+aside>div {
+	padding: 3px;
+	height: 200px;
+	overflow: auto;
 }
 table {
 	border-collapse: collapse;
@@ -34,7 +46,7 @@ table tr:first-child {
 	position: relative;
 	top: 0px;
 }
-td {
+td, th {
 	border: black 1px solid;
 	text-align: center;
 }
@@ -54,6 +66,10 @@ p {
 .error:valid {
 	box-shadow: none;
 }
+#galerie {
+	overflow: auto;
+	height: 300px;
+}
 #profil {
 	height: 100%;
 	display: flex;
@@ -62,18 +78,15 @@ p {
 }
 #profil a {
 	padding: 10px;
-	background: #2277FF;
-	color: white;
 }
-#profil a:hover {
-	background: #5588FF;
-}
-#classement {
-	padding: 3px;
-	height: 200px;
-	overflow: auto;
+#titre {
+	background: white;
+	color: black;
 }
 @media screen and (max-width: 600px) {
+	body {
+		padding: 0px;
+	}
 	header {
 		height: 50px;
 	}

@@ -1,1 +1,1 @@
-Désolé, il semblerait que la page demandé n'existe pas.
+<p>Désolé, il semblerait que la page demandé n'existe pas.</p>

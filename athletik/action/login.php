@@ -10,7 +10,10 @@ session_start();
 		$user = $bdd->query('SELECT password from user WHERE identifiant = "'.$identifiant.'"')->fetch(PDO::FETCH_ASSOC);
 		if(!$user) header('Location: ../?url=login&error=1');
 		else if ($user['password'] != hash('md5', $password)) header('Location: ../?url=login&error=2');
-		else $_SESSION['login'] = $identifiant;
+		else {
+			$_SESSION['login'] = $identifiant;
+			$_SESSION['privilege'] = $bdd->query('SELECT privilege FROM user WHERE identifiant="'.$_SESSION['login'].'"')->fetch(PDO::FETCH_ASSOC)['privilege'];
+		}
 	}
 	header('Location: ..');
 ?>

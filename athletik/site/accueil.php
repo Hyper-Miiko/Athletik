@@ -8,14 +8,22 @@
 		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 	</article>
-	<ul>
-		<!--slider-->
-	</ul>
+	<h2>Galerie</h2>
+	<div id="galerie">
+		<img src="data/event1.jpg">
+		<img src="data/event2.jpg">
+		<img src="data/event3.jpg">
+	</div>
 </section>
 <aside>
 	<div>
-		<!--calendar-->
+		<h3>Prochaines rencontres</h3>
 		<table>
+			<tr>
+				<th>Date</th>
+				<th>Lieu</th>
+				<th>Description</th>
+			</tr>
 			<?php
 				$donnees = $bdd->query('SELECT * FROM meeting');
 				$event;
@@ -24,11 +32,18 @@
 						echo '<tr><td>'.$temp["date"].'</td><td>'.$temp["name"].'</td><td>'.$temp["description"].'</ytd></tr>';
 					}
 				}
+				echo '<tr id="meeting" style="background: #2277FF"><td colspan="3"><a href=".?url=meeting">Voir</a></td></tr>';
 			?>
 		</table>
 	</div>
 	<div id="classement">
+		<h3>Classement général</h3>
 		<table>
+			<tr>
+				<th>N°</th>
+				<th>Participant</th>
+				<th>Points</th>
+			</tr>
 			<?php
 				function fonctionComparaison($a, $b){
 				    return $a['points'] < $b['points'];
@@ -48,11 +63,6 @@
 				}
 				usort($classement, 'fonctionComparaison');
 				$i = 0;
-				echo '<tr><th>N°</th><th>Participant</th><th>Points</th></tr>';
-				/*foreach($classement as $array) {
-					$i++;
-					echo '<tr><td>'.$i.'</td><td>'.$array["firstname"].' '.$array["lastname"].'</td><td>'.$array["points"].'</td></tr>';
-				}*/
 				for ($i = 1; $i <= sizeof($classement); $i++) {
 					echo '<tr><td>'.$i.'</td><td>'.$classement[$i-1]["firstname"].' '.$classement[$i-1]["lastname"].'</td><td>'.$classement[$i-1]["points"].'</td></tr>';
 				}
