@@ -22,7 +22,6 @@ echo '<form id="login" method="post" action="action/login.php">';
 	else echo '<input name="lastname" type="text" placeholder="Votre nom de famille" required/>';
 	if($error == 9) echo '<input name="birthdate" type="date" placeholder="Date invalide : JJ/MM/AAAA" class="error" required/>';
 	else echo '<input name="birthdate" type="date" placeholder="JJ/MM/AAAA" required/>';
-	echo '<input name="validating" type="submit" value="S\'enregistrer'" />
-</form>
-<a>';
+	echo '<input name="validating" type="submit" value="S\'enregistrer" />
+</form>';
 ?>

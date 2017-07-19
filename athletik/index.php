@@ -11,13 +11,13 @@ $bdd = new PDO('mysql:host=localhost;dbname=athletik;charset=utf8','root','M!8qc
 </head>
 <body>
 	<header>
-		<img alt="Athletik - les 1000 pas" title="Athletik - les 1000 pas" src="data/logo.gif" />
-		<h1>Athletik &mdash; les 1000 pas</h1>
+		<img alt="Athletik - les 1000 pas" title="Athletik - les 1000 pas" src="data/logo.gif" class="logo" />
+		<a href="."><h1>Athletik</h1><h2>Les 1000 pas</h2></a>
 		<?php
 			if(isset($_GET['url'])) {
-				if ($_GET['url'] != 'login') echo '<a href=".?url=login" title="Connectez-vous"><span class="symbol"><!--symbol-->O</span> Connexion</a>';
-			} else if(isset($_SESSION['login'])) echo '<p>Bonjour, '.$bdd->query('SELECT firstname from user WHERE identifiant = "'.$_SESSION["login"].'"')->fetch(PDO::FETCH_ASSOC)['firstname'].'</p><a href="action/disconnect.php">Déconnection</a>';
-			else echo '<a href=".?url=login" title="Connectez-vous"><span class="symbol"><!--symbol-->O</span> Connexion</a>';
+				if ($_GET['url'] != 'login') echo '<div id="profil"><a href=".?url=login" title="Connectez-vous"><span class="symbol"><!--symbol-->O</span> Connexion</a></div>';
+			} else if(isset($_SESSION['login'])) echo '<div id="profil"><p>Bonjour, '.$bdd->query('SELECT firstname from user WHERE identifiant = "'.$_SESSION["login"].'"')->fetch(PDO::FETCH_ASSOC)['firstname'].'</p><a href="action/disconnect.php">Déconnection</a></div>';
+			else echo '<div id="profil"><a href=".?url=login" title="Connectez-vous"><span class="symbol"><!--symbol-->O</span> Connexion</a></div>';
 		?>
 	</header>
 	<main>
