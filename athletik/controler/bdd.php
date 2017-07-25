@@ -74,6 +74,7 @@ function listingEvent($bdd) { //Liste des events (Non, sans blague?)
 		$temp['year'] = explode('-', $temp['date'])[0];
 		$listingEvent[] = $temp; //On insert chaque élément dans la liste
 	}
+	if(!isset($listingEvent)) $listingEvent = array();
 	usort($listingEvent, 'fonctionComparaisonDate'); //On tri par date
 	return $listingEvent; //Et basta
 }
@@ -90,10 +91,19 @@ function listingRunner($bdd) { //Liste des coureur et non pas des utilisateurs
 	usort($listingRunner, 'fonctionComparaisonNom'); //On tri par ordre de nom
 	return $listingRunner; //Et pasta
 }
+function listingMissingRunner($bdd, $event) { //Liste des coureur non inscrit sur le tableau
+	$donnees = $bdd->query('SELECT * FROM user');
+}
 function isparticipant($bdd, $id) { //$id, id de l'event; l'utilisateur est celui connecté
 	$donnees = $bdd->query('SELECT participant FROM event WHERE id="'.$id.'"')->fetch(PDO::FETCH_ASSOC)['participant']; //On récup la liste des participant de l'event sous forme de chaine de caractére
 	$donnees = explode(',', $donnees); //On met la chaine de caractére dans un tableau
 	foreach ($donnees as $key) if($key == $_SESSION['id']) return true; //On compare l'id de l'utilisateur avec les id du tableau et dès qu'on le trouve en renvoie true
 	return false; //Si la boucle arrive à terme sans être cassé par return true ça veut dire qu'il n'y est pas
+}
+function placeLeft($bdd, $event) {
+	$donnees = $bdd->query('SELECT participant, places FROM event WHERE id="'.$event.'"')->fetch(PDO::FETCH_ASSOC);
+	if(explode(',', $donnees['participant'])[0] == "")$result = $donnees['places'];
+	else $result = $donnees['places'] - sizeof(explode(',', $donnees['participant']));
+	return $result;
 }
 ?>

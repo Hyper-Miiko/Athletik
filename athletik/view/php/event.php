@@ -22,17 +22,20 @@ else $error = $_GET['error'];
 			$listingEvent = listingEvent($bdd);
 			$j = 0; //Taille du tableau
 			for ($i = 1; $i <= sizeof($listingEvent); $i++) { //On parcours le tableau
+				//Variable de condition
+				$date = date('Y').date('m').date('d');	//Concaténation pour simplifier les test
+				$dateCourse = $listingEvent[$i-1]["year"].$listingEvent[$i-1]["month"].$listingEvent[$i-1]["day"]; //Concaténation pour simplifier les test
+				$inscrit = isParticipant($bdd, $listingEvent[$i-1]['id']); //vérifie si l'utilisateur est inscrit
+				$placeLeft = placeLeft($bdd, $listingEvent[$i-1]["id"]); //Nombre de place restante
 				echo '<tr><td>'.$listingEvent[$i-1]["day"].'/'.$listingEvent[$i-1]["month"].'/'.$listingEvent[$i-1]["year"].'</td><td><a href=".?url=eventDescription&target='.$listingEvent[$i-1]["id"].'">'.$listingEvent[$i-1]["name"].'</a></td><td>'.$listingEvent[$i-1]["lieu"].'</td>'; //On affiche une partie de ligne
-				if($listingEvent[$i-1]["places"] >= 0) echo '<td>'.$listingEvent[$i-1]["places"].'</td>'; //Si il y a des place limité on affiche le nombre de place
-				else echo '<td>&infin;</td>'; //Sinon la valeur est celle de base -1 on affich'e donc le signe infinie
-				if(haveRight(1) && $listingEvent[$i-1]["year"] > date('Y')) echo '<td><a href="./controler/inscription.php/?target='.$listingEvent[$i-1]["id"].'&mode=in"><span class="unresponsive">S\'inscrire</span><span class="responsive">+</span></a></td>'; //Si l'event n'est pas passé et que l'utilisateur en a le droit on lui propose de s'inscrire
-				else if(haveRight(1) && $listingEvent[$i-1]["year"] = date('Y')) {
-					if($listingEvent[$i-1]["month"] > date('m')) echo '<td><a href="./controler/inscription.php/?target='.$listingEvent[$i-1]["id"].'&mode=in"><span class="unresponsive">S\'inscrire</span><span class="responsive">+</span></a></td>'; //Si l'event n'est pas passé et que l'utilisateur en a le droit on lui propose de s'inscrire (date + précise)
-					else if ($listingEvent[$i-1]["month"] = date('m')) {
-						if ($listingEvent[$i-1]["day"] > date('d')) echo '<td><a href="./controler/inscription.php/?target='.$listingEvent[$i-1]["id"].'&mode=in"><span class="unresponsive">S\'inscrire</span><span class="responsive">+</span></a></td>'; //Si l'event n'est pas passé et que l'utilisateur en a le droit on lui propose de s'inscrire (date ++ précise)
-						else echo '<td></td>'; //Si un conditions n'est pas respecté on affiche une case vide (plutot quer ne pas afficher de case)
-					} else echo '<td></td>'; //Si un conditions n'est pas respecté on affiche une case vide (plutot quer ne pas afficher de case)
-				} else echo '<td></td>'; //Si un conditions n'est pas respecté on affiche une case vide (plutot quer ne pas afficher de case)
+				if($listingEvent[$i-1]["places"] >= 0) {
+					echo '<td>'.$placeLeft.'/'.$listingEvent[$i-1]["places"].'</td>'; //Si il y a des place limité on affiche le nombre de place
+				} else echo '<td>&infin;</td>'; //Sinon la valeur est celle de base -1 on affich'e donc le signe infinie
+				//Affichage du boutton inscription/désinscription
+				if($dateCourse < $date || !haveRight(1) || $placeLeft == 0 && !$inscrit)echo '<td></td>'; //Aucun boutton
+				else if(!$inscrit) echo '<td><a href="./controler/inscription.php/?target='.$listingEvent[$i-1]["id"].'&mode=in"><span class="unresponsive">S\'inscrire</span><span class="responsive">+</span></a></td>'; //Boutton inscription
+				else echo '<td><a href="./controler/inscription.php/?target='.$listingEvent[$i-1]["id"].'&mode=out"><span class="unresponsive">Se désinscrire</span><span class="responsive">-</span></a></td>'; //Boutton désinscription
+
 				echo '</tr>'; //Fin de ligne
 				$j++; //Une ligne supplémentaire
 			}

@@ -58,10 +58,10 @@
 				echo '<p style="color: green">Score ajouté avec succés.<p>';
 			break;
 		}
-		$listingRunner = listingRunner($bdd); //On récup les coureur potentiel
+		$listingMissingRunner = listingMissingRunner($bdd, $target); //On récup les coureur potentiel non présent sur le tableau
 		echo '<select name="name" id="name">'; //Menu défilant pour choisir le nom
-		for ($i = 1; $i <= sizeof($listingRunner); $i++) { //On parcours $listingRunner pour en afficher tous les coureur potentiel
-			echo '<option value="'.$listingRunner[$i-1]['id'].'">'.$listingRunner[$i-1]['lastname'].' '.$listingRunner[$i-1]['firstname'].'</option>';
+		for ($i = 1; $i <= sizeof($listingMissingRunner); $i++) { //On parcours $listingRunner pour en afficher tous les coureur potentiel
+			echo '<option value="'.$listingMissingRunner[$i-1]['id'].'">'.$listingMissingRunner[$i-1]['lastname'].' '.$listingMissingRunner[$i-1]['firstname'].'</option>';
 		}
 		echo '</select>';
 		echo '<input type="text" class="points" name="points" disabled/>';

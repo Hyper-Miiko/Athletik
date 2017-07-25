@@ -23,11 +23,8 @@ if(preg_match("#^[0-3][0-9]/[0-1][0-9]/[0-2][0-9]{3}$#", $_POST['date']) != 1) {
 	exit;
 }
 $date = explode('/', $_POST['date'])[2].'-'.explode('/', $_POST['date'])[1].'-'.explode('/', $_POST['date'])[0]; //Passage au format bdd
-if(!isset($_POST['place'])) { //Limite de place?
-	if(!is_numeric($_POST['place']) || $_POST['place'] < 0) { //Nombre de place entier positif?
-		header('Location: ../?url=event&error=2'); //Retour à la page event, format place invalide
-		exit;
-	}
+var_dump($_POST['place'] == "");
+if($_POST['place'] == "") { //Limite de place?
 	//--------------------(test donnees)--------------------//
 
 	//====================[INSERTION BDD]====================//
@@ -35,10 +32,14 @@ if(!isset($_POST['place'])) { //Limite de place?
 	$request = $bdd->prepare('INSERT INTO event(name, lieu, date) VALUES (:name, :lieu, :date)');
 	$request->execute(array('name' => $_POST['nom'],
 							'lieu' => $_POST['lieu'],
-							'date' => $_POST['date']));
+							'date' => $date));
 }
 else {
 	//Avec limite de place
+	if(!is_numeric($_POST['place']) || $_POST['place'] < 0) { //Nombre de place entier positif?
+		header('Location: ../?url=event&error=2'); //Retour à la page event, format place invalide
+		exit;
+	}
 	$request = $bdd->prepare('INSERT INTO event(name, lieu, date, places) VALUES (:name, :lieu, :date, :places)');
 	$request->execute(array('name' => $_POST['nom'],
 							'lieu' => $_POST['lieu'],
