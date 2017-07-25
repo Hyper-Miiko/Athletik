@@ -92,7 +92,27 @@ function listingRunner($bdd) { //Liste des coureur et non pas des utilisateurs
 	return $listingRunner; //Et pasta
 }
 function listingMissingRunner($bdd, $event) { //Liste des coureur non inscrit sur le tableau
-	$donnees = $bdd->query('SELECT * FROM user');
+	$donnees = $bdd->query('SELECT * FROM user'); //On récupe tous les utilisateur
+	$listingMissingRunner;
+	$listingMissingRunnerTemp;
+	while($user = $donnees->fetch(PDO::FETCH_ASSOC)) { //On cut le premier élément de $donnees tant qu'il y a des élément dans $donnees
+		//On vérifie le droit de courir de chaque utilisateur
+		//On n'utilise pas haveRight(1) car il ne s'applique qu'à l'utilisateur connecté
+		//$temp['privilege']%2 renvoie 1 si impair et 0 si pair
+		//le bit de privilége pour participé est le bit 2⁰ qui vaut 1 si impair et 0 si pair
+		if($user['privilege']%2 == 1) $listingMissingRunnerTemp[] = $user;
+	}
+	$event = $bdd->query('SELECT participant FROM event WHERE id="'.$event.'"')->fetch(PDO::FETCH_ASSOC)['participant']; //On récupe l'event
+	$event = explode(',', $event);
+	for($i = 0; $i < sizeof($listingMissingRunnerTemp); $i++) {
+		for($j = 0; $j < sizeof($event); $j++) {
+			if($listingMissingRunnerTemp[$i]['id'] == $event[$j]) {
+				$listingMissingRunner[] = $listingMissingRunnerTemp[$i];
+			}
+		}
+	}
+	if(!isset($listingMissingRunner)) $listingMissingRunner = array();
+	return $listingMissingRunner;
 }
 function isparticipant($bdd, $id) { //$id, id de l'event; l'utilisateur est celui connecté
 	$donnees = $bdd->query('SELECT participant FROM event WHERE id="'.$id.'"')->fetch(PDO::FETCH_ASSOC)['participant']; //On récup la liste des participant de l'event sous forme de chaine de caractére

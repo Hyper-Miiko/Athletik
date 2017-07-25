@@ -45,7 +45,7 @@ else $error = $_GET['error'];
 		?>
 	</table>
 	<?php 
-	if(haveRight(2)) { //Si l'utilisateur peu éditer les event (droit n°2)
+	if(haveRight(2)) { //Si l'utilisateur peu éditer les events (droit n°2)
 		echo '<form method="post" action="./controler/addEvent.php">'; //On ouvre un formulaire ver l'ajout d'event
 		switch ($error) { //Affichage des erreur au dessus du formulaire
 			case 0: //Requête éxécuté avec succés (probablement)

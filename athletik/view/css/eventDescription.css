@@ -21,7 +21,6 @@ input:focus {
 	display: flex;
 	width: 80%;
 	margin: auto;
-	margin-top: 10px;
 	min-width: 360px;
 	color: white;
 }
@@ -45,8 +44,19 @@ input:focus {
 	color: white;
 	background: #0007;
 }
+#returnError {
+	width: 80%;
+	min-width: 360px;
+	margin: auto;
+	margin-top: 10px;
+	text-shadow: 1px 1px 0px white, -1px 1px 0px white, 1px -1px 0px white, -1px -1px 0px white;
+}
 @media screen and (max-width: 360px) {
 	input {
 		font-size: 3.5vw;
+	}
+	#returnError {
+		width: 100%;
+		min-width: 0px;
 	}
 }
