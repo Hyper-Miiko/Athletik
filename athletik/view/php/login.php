@@ -1,18 +1,20 @@
+<!--Colorfull-->
 <style type="text/css">
 	@import url('view/css/login.css');
 </style>
+
 <?php
-if(!isset($_GET['error'])) $error = 0;
+if(!isset($_GET['error'])) $error = 0; //Test d'une potentielle erreur
 else $error = $_GET['error'];
 ?>
 <main>
 	<?php
-	if(!isset($_SESSION['login'])) {
+	if(!isset($_SESSION['login'])) { //Si il n'est pas connecté (se serait bête de se connecter deux fois)
 		echo '
-		<form id="login" method="post" action="controler/login.php?referer='.$_SERVER["HTTP_REFERER"].'">
+		<form id="login" method="post" action="controler/login.php?referer='.$_SERVER["HTTP_REFERER"]/*pour retrouver la page avant le login*/.'">
 			<fieldset>
 				<legend>Connexion</legend>
-				<input type="hidden" name="form" value="login" />';
+				<input type="hidden" name="form" value="login" />';//Pour différencier le login du register 
 				if($error == 1) echo '<label><span class="label">Identifiant : </span><input type="text" name="login" placeholder="Utilisateur inexistant." class="error" required/></label>';
 				else echo '<label><span class="label">Identifiant : </span><input type="text" name="login" placeholder="ex. : jipéper" required/></label>';
 				if($error == 2) echo '<label><span class="label">Mot de passe : </span><input type="password" name="password" placeholder="Mot de passe incorrect" class="error" required/></label>';
@@ -23,7 +25,7 @@ else $error = $_GET['error'];
 		<form id="register" method="post" action="controler/login.php?referer='.$_SERVER["HTTP_REFERER"].'">
 			<fieldset>
 				<legend>Inscription</legend>
-				<input type="hidden" name="form" value="register" />';
+				<input type="hidden" name="form" value="register" />';//Pour différencier le login du register 
 				if($error == 7) echo '<label><span class="label">Prénom : </span><input type="text" name="firstname" placeholder="Prénom invalide" class="error" required/></label>';
 				else echo '<label><span class="label">Prénom : </span><input type="text" name="firstname" placeholder="ex. : Jule" required/></label>';
 				if($error == 8) echo '<label><span class="label">Nom : </span><input type="text" name="lastname" placeholder="Nom invalide" class="error" required /></label>';
@@ -41,6 +43,6 @@ else $error = $_GET['error'];
 			</fieldset>
 		</form>';
 	}
-	else echo '<p id="connected">Vous êtes déjà connecté.</p>';
+	else echo '<p id="connected">Vous êtes déjà connecté.</p>'; //Si il est connecté (même si il ne devrait pas pouvoir retourner ici normalement)
 	?>
 </main>

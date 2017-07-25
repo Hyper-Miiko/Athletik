@@ -1,1 +1,1 @@
-var INPUT_TIME = document.getElementsByClassName('time');
+var INPUT_TIME = document.getElementsByClassName('time'); //On chope toute les classes ".time"

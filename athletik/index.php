@@ -12,14 +12,18 @@ include('controler/security.php');
 	</head>
 	<body>
 		<?php
-		include('view/php/header.php');
-		include('view/php/nav.php');
-		if(isset($_GET['url'])) {
-			if(!include('view/php/'.$_GET["url"].'.php')) {
-				header('Location: ./?url=404#top');
+		include('view/php/header.php');//Bannière de haute de page (sur chaque page)
+		include('view/php/nav.php');//Menu (sur chaque page)
+		if(isset($_GET['url'])) {//Si on a un url sous forme de get
+			if(!include('view/php/'.$_GET["url"].'.php')) {//On essaye d'include la page correspondante si ça ne marche pas
+				header('Location: ./?url=404#top'); //On s'casse! (page d'erreur not found)
+				exit;
 			}
-		} else header('Location: ./?url=accueil');
-		include('view/php/footer.php');
+		} else {
+			header('Location: ./?url=accueil'); //Sinon on en met un nah :-p
+			exit;
+		}
+		include('view/php/footer.php');//Ok il y en a pas encore mais bon
 		?>
 	</body>
 	<script type="text/javascript" src="view/js/variable.js"></script>

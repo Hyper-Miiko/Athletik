@@ -1,6 +1,8 @@
+<!--C'mon on met un  paint de couleur-->
 <style type="text/css">
 	@import url('view/css/accueil.css');
 </style>
+
 <main>
 	<article>
 		<p id="presentation">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -13,34 +15,36 @@
 	<table id="scoreGeneral">
 		<tr>
 		<?php
-			if(!isset($_GET['user'])) echo'
-				<th>Place</a></th>
-				<th>Participant</th>
-				<th><a href=".?url=accueil&sort=0">Points</th>
-				<th><a href=".?url=accueil&sort=1">Temps</th>
-				<th><a href=".?url=accueil&sort=2">Courses</th>';
-			else echo'
-				<th>Place</a></th>
-				<th>Participant</th>
-				<th><a href=".?url='.$_GET['user'].'&sort=0">Points</th>
-				<th><a href=".?url='.$_GET['user'].'&sort=1">Temps</th>
-				<th><a href=".?url='.$_GET['user'].'&sort=2">Courses</th>';
+		//Si on ne cible pas d'utilisateur
+		if(!isset($_GET['user'])) echo'
+			<th>Place</th>
+			<th>Participant</th>
+			<th><a href=".?url=accueil&sort=0">Points</a></th>
+			<th><a href=".?url=accueil&sort=1">Temps</a></th>
+			<th><a href=".?url=accueil&sort=2">Courses</a></th>';
+		//Sinon on rajoute son lien pour ne pas perdre le focus
+		else echo'
+			<th>Place</a></th>
+			<th>Participant</th>
+			<th><a href=".?url='.$_GET['user'].'&sort=0">Points</a></th>
+			<th><a href=".?url='.$_GET['user'].'&sort=1">Temps</a></th>
+			<th><a href=".?url='.$_GET['user'].'&sort=2">Courses</a></th>';
 		?>
 		</tr>
 		<?php
 			include('controler/bdd.php');
-			if(!isset($_GET['sort'])) $sort = 0;
-			else $sort = $_GET['sort'];
-			if(!isset($_GET['user'])) $user = "*";
-			else $user = $_GET['user'];
-			$classement = classement($bdd, "*", $user, $sort);
-			$j = 0;
-			for ($i = 1; $i <= sizeof($classement); $i++) {
-				echo '<tr><td>'.$i.'</td><td><a href="./?url=accueil&user='.$classement[$i-1]["id"].'">'.$classement[$i-1]["firstname"].' '.$classement[$i-1]["lastname"].'</a></td><td>'.$classement[$i-1]["points"].'</td><td>'.$classement[$i-1]["min"].'.'.$classement[$i-1]["sec"].'</td><td>'.$classement[$i-1]["nbrcourse"].'</td></tr>';
-				$j++;
+			if(!isset($_GET['sort'])) $sort = 0; //Si on à pas mis de tri on le met par default
+			else $sort = $_GET['sort']; //Sinon, bah ça parait logique non? On mange des crêpes
+			if(!isset($_GET['user'])) $user = "*"; //Si on ne cible pas d'utilisateur en particulier on les cible tous
+			else $user = $_GET['user']; //Après le coup que je t'es fait tu lit quand même cette ligne?
+			$classement = classement($bdd, "*", $user, $sort); //On récup le tableau de tous les event du/des utilisateur sélectionné avec le tri choisi
+			$j = 0; //Taille du tableau
+			for ($i = 1; $i <= sizeof($classement); $i++) { //On parcours $classement
+				echo '<tr><td>'.$i.'</td><td><a href="./?url=accueil&user='.$classement[$i-1]["id"].'">'.$classement[$i-1]["firstname"].' '.$classement[$i-1]["lastname"].'</a></td><td>'.$classement[$i-1]["points"].'</td><td>'.$classement[$i-1]["min"].'.'.$classement[$i-1]["sec"].'</td><td>'.$classement[$i-1]["nbrcourse"].'</td></tr>'; //Une ligne du tableau
+				$j++; //Une ligne supplémentaire
 			}
-			if($j == 0) {
-				echo '<tr><td>&mdash;&mdash;</td><td>&mdash;&mdash;</td><td>&mdash;&mdash;</td><td>&mdash;&mdash;</td><td>&mdash;&mdash;</td></tr>';
+			if($j == 0) { //Si il n'y a aucunne ligne une fois que $classement est parcouru
+				echo '<tr><td>&mdash;&mdash;</td><td>&mdash;&mdash;</td><td>&mdash;&mdash;</td><td>&mdash;&mdash;</td><td>&mdash;&mdash;</td></tr>'; //On rajoute une ligne pour faire moins moche
 			}
 		?>
 	</table>

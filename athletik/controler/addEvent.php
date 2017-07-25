@@ -7,25 +7,25 @@ include('security.php');
 ?>
 <?php
 //====================[SECURITE]====================//
-if(!haveright(2)) {
+if(!haveRight(2)) {
 	header('Location: ../?url=403#top');
 	exit;
 }
-if(!isset($_POST['date']) || !isset($_POST['nom']) || !isset($_POST['lieu'])) {
+if(!isset($_POST['date']) || !isset($_POST['nom']) || !isset($_POST['lieu'])) { //Récupération des données nécessaires?
 	header('Location: ../?url=400#top');
 	exit;
 }
 //--------------------(securite)--------------------//
 
 //====================[TEST DONNEES]====================//
-if(preg_match("#^[0-3][0-9]/[0-1][0-9]/[0-2][0-9]{3}$#", $_POST['date']) != 1) {
-	header('Location: ../?url=event&error=1');
+if(preg_match("#^[0-3][0-9]/[0-1][0-9]/[0-2][0-9]{3}$#", $_POST['date']) != 1) { //Date au bon format?
+	header('Location: ../?url=event&error=1'); //Retour à la page event, format date invalide
 	exit;
 }
 $date = explode('/', $_POST['date'])[2].'-'.explode('/', $_POST['date'])[1].'-'.explode('/', $_POST['date'])[0]; //Passage au format bdd
-if(!isset($_POST['place'])) {
-	if(!is_numeric($_POST['place']) || $_POST['place'] < 0) {
-		header('Location: ../?url=event&error=2');
+if(!isset($_POST['place'])) { //Limite de place?
+	if(!is_numeric($_POST['place']) || $_POST['place'] < 0) { //Nombre de place entier positif?
+		header('Location: ../?url=event&error=2'); //Retour à la page event, format place invalide
 		exit;
 	}
 	//--------------------(test donnees)--------------------//
