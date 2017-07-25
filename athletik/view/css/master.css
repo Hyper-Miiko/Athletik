@@ -1,0 +1,188 @@
+/*====================[GLOBAL]====================*/
+* {
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	list-style: none;
+	font-family: sans-serif;
+	color: black;
+}
+body {
+	background-image: url('../../data/wallpaper.jpg');
+	background-repeat: repeat;
+}
+.responsive {
+	display: none;
+}
+.hidden {
+	display: none;
+}
+/*--------------------(global)--------------------*/
+
+/*====================[HEADER]====================*/
+header {
+	height: 100px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	margin: 5px;
+	padding: 10px;
+	border-bottom: 2px solid #777777;
+	transition: margin 1s, padding 1s;
+}
+#buttonConnexion {
+	border-radius: 3px;
+	padding: 20px;
+	background: #2255FF;
+	color: white;
+}
+#buttonConnexion:hover {
+	background: #5588FF;
+}
+#buttonDisconnexion {
+	border-radius: 3px;
+	padding: 10px;
+	background: #2255FF;
+	color: white;
+	margin-top: 10px;
+}
+#buttonDisconnexion:hover {
+	background: #5588FF;
+}
+#logo {
+	height: 100%;
+}
+#salutation {
+	color: white;
+	margin-bottom: 10px;
+	text-shadow: -1px -1px 1px black, 1px -1px 1px black, 1px 1px 1px black, -1px 1px 1px black;
+}
+#titre, #profil {
+	text-align: center;
+}
+#titre {
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+/*--------------------(header)--------------------*/
+
+/*====================[NAV]====================*/
+nav {
+	width: 98%;
+	display: flex;
+	background-color: #0007;
+	margin: 1%;
+	height: 30px;
+}
+nav a {
+	color: white;
+	flex: 1;
+	text-align: center;
+	border-right: 1px solid white;
+	margin: auto;
+}
+nav a:last-child {
+	border-right: none;
+}
+nav a:hover {
+	text-decoration: underline;
+}
+/*--------------------(nav)--------------------*/
+
+/*====================[TABLE]====================*/
+#presentation {
+	color: white;
+	background: #0007;
+	width: 80%;
+	min-width: 360px;
+	margin: auto;
+	margin-top: 20px;
+	text-align: justify;
+	border-radius: 3px;
+	padding: 5px;
+}
+table {
+	width: 80%;
+	min-width: 360px;
+	margin: auto;
+	margin-top: 20px;
+	text-align: center;
+	border-collapse: collapse;
+}
+table a {
+	color: white;
+}
+table a *{
+	color: inherit;
+}
+table a:hover {
+	text-decoration: underline;
+	color: white;
+}
+table td, table th {
+	color: white;
+}
+table tr {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+table tr:nth-child(odd) {
+	background-color: rgba(127, 127,127, 0.5);
+}
+@media screen and (max-width: 360px) {
+	#presentation {
+		width: 95%;
+		min-width: 0px;
+	}
+	#table {
+		width: 100%;
+		min-width: 0px;
+	}
+	#table td, table th {
+		font-size: 4vw;
+	}
+}
+/*--------------------(table)--------------------*/
+
+/*====================[FORM]====================*/
+.error {
+	color: red;
+	box-shadow: 0 0 2px red;
+}
+.error:focus, .error:valid {
+	color: white;
+	box-shadow: none;
+}
+/*--------------------(form)--------------------*/
+
+@media screen and (max-width: 600px) {
+	/*====================[HEADER]====================*/
+	header {
+		margin: 0px;
+		padding: 0px;
+		transition: margin 1s, padding 1s;
+	}
+	#logo {
+		display: none;
+	}
+	/*--------------------(header)--------------------*/
+}
+@media screen and (max-width: 400px) {
+	/*====================[GLOBAL]====================*/
+	h1 {
+		font-size: 8vw;
+	}
+	h2 {
+		font-size: 6vw;
+	}
+	p, a, td{
+		font-size: 3.5vw;
+	}
+	.unresponsive {
+		display: none;
+	}
+	.responsive {
+		display: inline;
+	}
+	/*--------------------(global)--------------------*/
+}

@@ -1,0 +1,22 @@
+html {
+	height: 100%;
+}
+body {
+	height: 100%;
+}
+main {
+	background: url('../../data/wallpaper400.jpg') no-repeat;
+	background-size: cover;
+	height: 100%;
+}
+main h2, main p {
+	color: white;
+	text-align: right;
+	margin: 10px;
+	text-shadow: -1px -1px 1px black, 1px -1px 1px black, 1px 1px 1px black, -1px 1px 1px black;
+}
+@media screen and (max-width: 600px) {
+	body {
+		background-position: 0 100px;
+	}
+}

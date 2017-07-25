@@ -1,0 +1,1 @@
+var INPUT_TIME = document.getElementsByClassName('time');

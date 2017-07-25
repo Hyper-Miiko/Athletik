@@ -1,0 +1,52 @@
+input {
+	border: 1px white solid;
+	text-align: center;
+	background: inherit;
+	color: white;
+	width: 100%;
+}
+input:focus {
+	background: white;
+	color: black;
+}
+.action {
+	display: flex;
+}
+.action button {
+	flex: 1;
+	background: inherit;
+	color: white;
+}
+#addScore {
+	display: flex;
+	width: 80%;
+	margin: auto;
+	margin-top: 10px;
+	min-width: 360px;
+	color: white;
+}
+#addScore input {
+	background: #0007;
+	flex: 3;
+}
+#addScore input:focus {
+	color: white;
+}
+#addScore input:last-child {
+	flex: 1;
+}
+#addScore select {
+	border: none;
+	background: #0007;
+	color: white;
+	flex: 3;
+}
+#addScore option {
+	color: white;
+	background: #0007;
+}
+@media screen and (max-width: 360px) {
+	input {
+		font-size: 3.5vw;
+	}
+}
