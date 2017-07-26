@@ -22,9 +22,9 @@ function calcPoint() {
 	if(!isNaN(points))this.parentNode.parentNode.querySelector('.edit').href = './controler/editScore.php?user='+this.parentNode.parentNode.querySelector('.id').innerHTML+'&event='+document.querySelector('.event').value+'&time='+time+'&points='+points; //Hum... disons qu'on récup tous est qu'on en fait un lien passant les argument avec $_GET
 	else this.parentNode.parentNode.querySelector('.edit').href = ""; //Si la valeur n'est pas valid on désactive le lien
 }
-function recaptchaSubmit() {
+/*function recaptchaSubmit() {
 	document.getElementById("register").submit();
-}
+}*/
 var slideIndex = 1;
 showDivs(slideIndex);
 
@@ -41,4 +41,8 @@ function showDivs(n) {
         x[i].style.display = "none";
     }
     x[slideIndex-1].style.display = "block";
+}
+function rightWarning() {
+	var button = document.querySelector('.rightWarning').checked;
+	if(!button)alert("Attention! Le retrait de ce droit vous empécherat d'avoir accés à l'édition des droit. Vous ne pourrez alors plus récupérer ce droit. Soyez sur de ce que vous faite.");
 }

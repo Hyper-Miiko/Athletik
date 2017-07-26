@@ -130,4 +130,13 @@ function placeLeft($bdd, $event) {
 	else $result = $donnees['places'] - sizeof(explode(',', $donnees['participant']));
 	return $result;
 }
+function listingRegister($bdd) {
+	$donnees = $bdd->query('SELECT * FROM user');
+	$result;
+	while($temp = $donnees->fetch(PDO::FETCH_ASSOC)) {
+		$result[] = $temp;
+	}
+	usort($result, 'fonctionComparaisonNom');
+	return $result;
+}
 ?>

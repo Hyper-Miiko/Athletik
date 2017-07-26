@@ -35,7 +35,7 @@ if($_POST['form'] == 'login') {
 else if($_POST['form'] == 'register') {
 	if(!isset($_POST['login']) || !isset($_POST['password']) || !isset($_POST['confpassword']) || !isset($_POST['firstname']) || !isset($_POST['lastname']) || !isset($_POST['birthdate'])) header('Location: ../?url=400#top'); //Un bout de sécu encore :-)
 	else {
-		//====================[RECAPTCHA]====================//
+		/*/====================[RECAPTCHA]====================//
 		$url = 'https://www.google.com/recaptcha/api/siteverify';
 		$data = array('secret' => '6LdXeioUAAAAAGClsezmM80DHz3Brukk_sDhOgAi',
 			'response' => $_POST['g-recaptcha-response']);
@@ -46,7 +46,7 @@ else if($_POST['form'] == 'register') {
 		$context  = stream_context_create($options);
 		$result = file_get_contents($url, false, $context);
 		var_dump($result);
-		//--------------------(recaptcha)--------------------//
+		//--------------------(recaptcha)--------------------/*/
 		$login = addslashes($_POST['login']); //On échape les caractére problématique
 		$password = addslashes($_POST['password']); //On échape les caractére problématique
 		$confpassword = addslashes($_POST['confpassword']); //On échape les caractére problématique
@@ -75,7 +75,7 @@ else if($_POST['form'] == 'register') {
 			//On a toujours des chose utile à mettre dans la variable de session... N'est-ce pas?
 			$_SESSION['login'] = $login; 
 			$_SESSION['id'] = $bdd->query('SELECT id FROM user WHERE login="'.$_SESSION['login'].'"')->fetch(PDO::FETCH_ASSOC)['id'];
-			//header('Location: '.$_GET['referer']); //On rentre à la maison
+			header('Location: '.$_GET['referer']); //On rentre à la maison
 		}
 	}
 }

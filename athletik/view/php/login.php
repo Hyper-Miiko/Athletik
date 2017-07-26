@@ -39,14 +39,14 @@ else $error = $_GET['error'];
 				else echo '<label><span class="label">Mot de passe : </span><input type="password" name="password" placeholder="Mot de passe" required/></label>';
 				if($error == 6) echo '<label><span class="label">Confirmer : </span><input type="password" name="confpassword" placeholder="Mot de passe différent" class="error" required/></label>';
 				else echo '<label><span class="label">Confirmer : </span><input type="password" name="confpassword" placeholder="Mot de passe" required/></label>';
-				echo '<button
+				/*echo '<button
 					class="g-recaptcha"
 					data-sitekey="6LdXeioUAAAAAFkztxQPDFtkeZO5ECnZxyIcM1AL"
 					data-callback="recaptchaSubmit">
 					Je m\'enregistre
-					</button>'; //API Google recaptcha
-				echo //'<input type="submit" name="valider" value="Je m\'enregistre" />
-			'</fieldset>
+					</button>'; //API Google recaptcha*/
+				echo '<input type="submit" name="valider" value="Je m\'enregistre" />
+			</fieldset>
 		</form>';
 	}
 	else echo '<p id="connected">Vous êtes déjà connecté.</p>'; //Si il est connecté (même si il ne devrait pas pouvoir retourner ici normalement)
