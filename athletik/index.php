@@ -9,6 +9,7 @@ include('controler/security.php');
 		<meta charset="utf-8" />
 		<title>Athletik &mdash; Les 1000 pas</title>
 		<link rel="stylesheet" type="text/css" href="view/css/master.css" />
+		<script src='https://www.google.com/recaptcha/api.js'></script>
 	</head>
 	<body>
 		<?php

@@ -14,8 +14,8 @@
 			<input class="hidden event" value=<?php echo '"'.$_GET['target'].'"' ?> />
 			<th>Place</a></th>
 			<th>Participant</th>
-			<th><a href=".?url=accueil&sort=0">Points</th>
-			<th><a href=".?url=accueil&sort=1">Temps</th>
+			<th><a href=".?url=eventDescription&sort=0&target=<?php echo $_GET['target'] ?>">Points</th>
+			<th><a href=".?url=eventDescription&sort=1&target=<?php echo $_GET['target'] ?>">Temps</th>
 			<?php if(haveRight(2)) echo '<th>Action</th>';//Si l'utilisateur peut éditer on le lui permet ?>
 		</tr>
 		<?php
@@ -40,12 +40,13 @@
 					<td><a href="./?url=accueil&user='.$classement[$i-1]["id"].'">'.$classement[$i-1]["firstname"].' '.$classement[$i-1]["lastname"].'</a></td>
 					<td>'.$classement[$i-1]["points"].'</td>
 					<td>'.$classement[$i-1]["min"].'.'.$classement[$i-1]["sec"].'</td>
-					<td>'.$classement[$i-1]["nbrcourse"].'</td>
 				</tr>'; //Sinon, shine!
 				$j++; //Une ligne de plus
 			}
 			if($j == 0) {
-				echo '<tr><td>&mdash;&mdash;</td><td>&mdash;&mdash;</td><td>&mdash;&mdash;</td><td>&mdash;&mdash;</td><td>&mdash;&mdash;</td></tr>'; //au moins une ligne sinon ça fait moche
+				echo '<tr><td>&mdash;&mdash;</td><td>&mdash;&mdash;</td><td>&mdash;&mdash;</td><td>&mdash;&mdash;</td>';
+				if(haveRight(2)) echo '<td>&mdash;&mdash;</td>';
+				echo '</tr>'; //au moins une ligne sinon ça fait moche
 			}
 		?>
 	</table>

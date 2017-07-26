@@ -12,24 +12,21 @@
 		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 	</article>
+	<div id="slideshow">
+		<button class="slideButton slideButtonLeft" onclick="plusDivs(-1)">&#10094;</button>
+		<img class="slideImg" src="data/img1.jpg" />
+		<img class="slideImg" src="data/img2.jpg" />
+		<img class="slideImg" src="data/img3.jpg" />
+		<img class="slideImg" src="data/img4.jpg" />
+		<button class="slideButton slideButtonRight" onclick="plusDivs(+1)">&#10095;</button>
+	</div>
 	<table id="scoreGeneral">
 		<tr>
-		<?php
-		//Si on ne cible pas d'utilisateur
-		if(!isset($_GET['user'])) echo'
 			<th>Place</th>
 			<th>Participant</th>
 			<th><a href=".?url=accueil&sort=0">Points</a></th>
 			<th><a href=".?url=accueil&sort=1">Temps</a></th>
-			<th><a href=".?url=accueil&sort=2">Courses</a></th>';
-		//Sinon on rajoute son lien pour ne pas perdre le focus
-		else echo'
-			<th>Place</a></th>
-			<th>Participant</th>
-			<th><a href=".?url='.$_GET['user'].'&sort=0">Points</a></th>
-			<th><a href=".?url='.$_GET['user'].'&sort=1">Temps</a></th>
-			<th><a href=".?url='.$_GET['user'].'&sort=2">Courses</a></th>';
-		?>
+			<th><a href=".?url=accueil&sort=2">Courses</a></th>
 		</tr>
 		<?php
 			include('controler/bdd.php');

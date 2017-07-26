@@ -153,7 +153,31 @@ table tr:nth-child(odd) {
 	color: white;
 	box-shadow: none;
 }
+.grecaptcha-badge {
+	display: none;
+}
 /*--------------------(form)--------------------*/
+
+/*====================[SLIDESHOw]====================*/
+#slideshow {
+	width: 80%;
+	min-width: 600px;
+	height: 300px;
+	margin: auto;
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.slideImg {
+	height: 100%;
+	max-width: 90%;
+}
+.slideButton {
+	height: 100%;
+	width: 5%;
+}
+/*--------------------(slideshow)--------------------*/
 
 @media screen and (max-width: 600px) {
 	/*====================[HEADER]====================*/
@@ -164,6 +188,14 @@ table tr:nth-child(odd) {
 	}
 	#logo {
 		display: none;
+	}
+	#slideshow {
+		width: 100%;
+		min-width: 0px;
+		height: auto;
+	}
+	.slideButton {
+		height: 100px;
 	}
 	/*--------------------(header)--------------------*/
 }

@@ -12,4 +12,16 @@ function haveRight($r) { //$r, entier strictement positif : droit vérifié
 	}
 	return false; //il ne l'a pas
 }
+function recaptchaSubmit() {
+	$url = 'https://www.google.com/recaptcha/api/siteverify';
+	$data = array('secret' => '6LdXeioUAAAAAGClsezmM80DHz3Brukk_sDhOgAi',
+		'response' => $_POST['g-recaptacha-response']);
+	$option = array('http' => array(
+		'header' => 'Content-type: application/x-www-form-urlencoded\r\n',
+		'method' => 'POST',
+		'content' => http_buildquery($data)));
+	$context  = stream_context_create($options);
+	$result = file_get_contents($url, false, $context);
+	var_dump($result);
+}
 ?>

@@ -24,46 +24,49 @@ function classement($bdd, $event, $user, $sort) { //$bdd, toujours $bdd; $event,
 	while($temp = $donnees->fetch(PDO::FETCH_ASSOC)) {//On cut le premier élément de $donnees dans $classement tant qu'il y a des élément dans $donnees
 		$classement[] = $temp; //On insert une nouvelle ligne dans le tableau $classement
 	}
-	foreach($classement as &$array) { //On parcours $classement en éditant chaque élément qu'on nommera $array
-		$array['points'] = 0; //Reset des points
-		$array['time'] = 0; //Reset du temps
-		if ($event == "*")$donnees = $bdd->query('SELECT points, time FROM result WHERE user_id="'.$array['id'].'"'); //On compte le total de points de chaque utilisateurs
-		else $donnees = $bdd->query('SELECT points, time FROM result WHERE user_id="'.$array['id'].'" AND event_id="'.$event.'"'); //On compte les points d'un $event de chaque utilisateurs
-		$i = 0; //Nombre de course
-		while ($temp = $donnees->fetch(PDO::FETCH_ASSOC)) {//On cut le premier élément de $donnees tant qu'il y a des élément dans $donnees
-			$array['points'] += $temp['points']; //Somme des points
-			$array['time'] += $temp['time']; //Somme du temps
-			$i++; //Chaque somme = une nouvelle course
-		}
-		$array['nbrcourse'] = $i; //Editions du nombre de course
-	}
-	$i = 0; //Boucle for conditionnel => while
-	while ($i < sizeof($classement)) { //Pour chaque élément de $classement
-		if($classement[$i]['nbrcourse'] == 0) { //Si l'user n'a pas de course on ne l'affiche pas
-			array_splice($classement, $i, 1); //donc on le supprime du tableau, donc pas besoin d'incrémenter $i
-		} else {
-			$classement[$i]['min'] = floor($classement[$i]['time']/60); //Convertion du temps de la bdd (en sec) vers le temps affiché (en min)
-			$classement[$i]['sec'] = $classement[$i]['time']%60; //On rajoute les seconde restante
-			if($event != '*') { //Si on cible un event particulier
-				$date = $bdd->query('SELECT date FROM event WHERE id="'.$event.'"')->fetch(PDO::FETCH_ASSOC); //On récupérer la date de l'event
-				$classement[$i]['age'] = explode('-', $date['date'])[0] - explode('-', $classement[$i]['birthdate'])[0]; //On récupére ~ le nombre d'année entre la date de naissance de l'utilisateur et la date de la course
-				if(explode('-', $classement[$i]['birthdate'])[1] < explode('-', $date['date'])[1]) $classement[$i]['age']++; //On vérifie aussi les mois
-				if(explode('-', $classement[$i]['birthdate'])[1] = explode('-', $date['date'])[1] && explode('-', $classement[$i]['birthdate'])[2] <= explode('-', $date['date'])[2]) $classement[$i]['age']++; //Et enfin les jours
+	if(isset($classement)) {
+		foreach($classement as &$array) { //On parcours $classement en éditant chaque élément qu'on nommera $array
+			$array['points'] = 0; //Reset des points
+			$array['time'] = 0; //Reset du temps
+			if ($event == "*")$donnees = $bdd->query('SELECT points, time FROM result WHERE user_id="'.$array['id'].'"'); //On compte le total de points de chaque utilisateurs
+			else $donnees = $bdd->query('SELECT points, time FROM result WHERE user_id="'.$array['id'].'" AND event_id="'.$event.'"'); //On compte les points d'un $event de chaque utilisateurs
+			$i = 0; //Nombre de course
+			while ($temp = $donnees->fetch(PDO::FETCH_ASSOC)) {//On cut le premier élément de $donnees tant qu'il y a des élément dans $donnees
+				$array['points'] += $temp['points']; //Somme des points
+				$array['time'] += $temp['time']; //Somme du temps
+				$i++; //Chaque somme = une nouvelle course
 			}
-			$i++; //L'utilisateur est fait on passe au suivant
+			$array['nbrcourse'] = $i; //Editions du nombre de course
 		}
+		$i = 0; //Boucle for conditionnel => while
+		while ($i < sizeof($classement)) { //Pour chaque élément de $classement
+			if($classement[$i]['nbrcourse'] == 0) { //Si l'user n'a pas de course on ne l'affiche pas
+				array_splice($classement, $i, 1); //donc on le supprime du tableau, donc pas besoin d'incrémenter $i
+			} else {
+				$classement[$i]['min'] = floor($classement[$i]['time']/60); //Convertion du temps de la bdd (en sec) vers le temps affiché (en min)
+				$classement[$i]['sec'] = $classement[$i]['time']%60; //On rajoute les seconde restante
+				if($event != '*') { //Si on cible un event particulier
+					$date = $bdd->query('SELECT date FROM event WHERE id="'.$event.'"')->fetch(PDO::FETCH_ASSOC); //On récupérer la date de l'event
+					$classement[$i]['age'] = explode('-', $date['date'])[0] - explode('-', $classement[$i]['birthdate'])[0]; //On récupére ~ le nombre d'année entre la date de naissance de l'utilisateur et la date de la course
+					if(explode('-', $classement[$i]['birthdate'])[1] < explode('-', $date['date'])[1]) $classement[$i]['age']++; //On vérifie aussi les mois
+					if(explode('-', $classement[$i]['birthdate'])[1] = explode('-', $date['date'])[1] && explode('-', $classement[$i]['birthdate'])[2] <= explode('-', $date['date'])[2]) $classement[$i]['age']++; //Et enfin les jours
+				}
+				$i++; //L'utilisateur est fait on passe au suivant
+			}
+		}
+		switch($sort) { //Liste des choix de classement
+		case 1:
+			usort($classement, 'fonctionComparaisonTemps');
+			break;
+		case 2:
+			usort($classement, 'fonctionComparaisonCourses');
+			break;
+		default:
+			usort($classement, 'fonctionComparaisonPoints'); //Par default on classe par points
+		}
+		return $classement;
 	}
-	switch($sort) { //Liste des choix de classement
-	case 1:
-		usort($classement, 'fonctionComparaisonTemps');
-		break;
-	case 2:
-		usort($classement, 'fonctionComparaisonCourses');
-		break;
-	default:
-		usort($classement, 'fonctionComparaisonPoints'); //Par default on classe par points
-	}
-	return $classement;
+	return array();
 }
 function listingEvent($bdd) { //Liste des events (Non, sans blague?)
 	$donnees = $bdd->query('SELECT * FROM event'); //On récupe tous
@@ -115,6 +118,7 @@ function listingMissingRunner($bdd, $event) { //Liste des coureur non inscrit su
 	return $listingMissingRunner;
 }
 function isparticipant($bdd, $id) { //$id, id de l'event; l'utilisateur est celui connecté
+	if(!isset($_SESSION['id'])) return false;
 	$donnees = $bdd->query('SELECT participant FROM event WHERE id="'.$id.'"')->fetch(PDO::FETCH_ASSOC)['participant']; //On récup la liste des participant de l'event sous forme de chaine de caractére
 	$donnees = explode(',', $donnees); //On met la chaine de caractére dans un tableau
 	foreach ($donnees as $key) if($key == $_SESSION['id']) return true; //On compare l'id de l'utilisateur avec les id du tableau et dès qu'on le trouve en renvoie true
