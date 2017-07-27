@@ -1,5 +1,6 @@
 # Athletik
-Run, athletik, run!
+Run, athletik, run! (≧▽≦)
 
-Installer un logiciel capable de lire le php.
-Et la base de donnée Athletik.sql
+Installer un logiciel capable de lire le php. 
+Et la base de donnée athletik.sql 
+¯\_(ツ)_/¯
